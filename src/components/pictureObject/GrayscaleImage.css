@@ -1,0 +1,11 @@
+.grayscale-image-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  .grayscale-image {
+    width: 100%;
+    height: auto;
+    filter: grayscale(100%);
+  }

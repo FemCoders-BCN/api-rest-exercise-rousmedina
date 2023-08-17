@@ -2,6 +2,8 @@ import './App.css';
 import Navbar from './components/navbar/Navbar';
 import logo from './assets/img/logo.svg';
 
+
+
 function App() {
   return (
     <>

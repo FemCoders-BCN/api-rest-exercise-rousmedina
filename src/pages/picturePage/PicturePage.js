@@ -1,22 +1,34 @@
-import React from 'react'
-import Navbar from '../../components/navbar/Navbar'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { LoremPicsumService } from '../../services/LoremPicsumService';
 
-function PicturePage() {
+const PicturePage = () => {
+  const [imageData, setImageData] = useState(null);
+  const loremPicsum = LoremPicsumService();
+
+  useEffect(() => {
+    fetchImageData();
+  }, []);
+
+  const fetchImageData = async () => {
+    try {
+      const response = await loremPicsum.getImageById('123', '200'); // Cambia el ID y tamaño según tus necesidades
+      setImageData(response.data);
+    } catch (error) {
+      console.error('Error fetching image data:', error);
+    }
+  };
+
+  if (!imageData) {
+    return <p>Cargando imagen...</p>;
+  }
+
   return (
-    <main>
-        <h2>Aquí estará la imagen de la segunda llamada</h2>
-        <Navbar/>
-        <ul>
-            <p>INSTRUCCIONES</p>
-            <li>Crea los componentes que necesites para imprimir lo siguiente (siguiendo el ejemplo del componente PictureObject):</li>
-            <ol>
-                <li>La fotografía (queremos ver la imagen en nuestra app, no queremos la url),.</li>
-            </ol>
-            <li>Has de borrar estas instrucciones cuando lo tengas.</li>
-            <li>Los estilos los has de realizar tú misma.</li>
-        </ul>
-    </main> 
-  )
-}
+    <div>
+      <h2>Detalles de la imagen</h2>
+      <img src={imageData.download_url} alt={`Image ${imageData.id}`} />
+    </div>
+  );
+};
 
-export default PicturePage
+export default PicturePage;
